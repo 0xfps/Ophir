@@ -57,6 +57,7 @@ OphirDepartmentalContractInterface
     function _addToArray(string memory _dept) private {
         if (!departmentsAdded[_dept]) {
             departments.push(_dept);
+            departmentsAdded[_dept] = true;
         }
     }
 }
