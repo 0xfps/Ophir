@@ -7,10 +7,10 @@ pragma solidity ^0.8.14;
 * @dev 
 */
 interface OphirDepartmentalContractInterface {
-    function addDepartment(string memory dept, uint256 number) external;
-    function getDepartmentNumber(string memory dept)
+    function addDepartment(string memory _dept, uint256 _number) external;
+    function getDepartmentNumber(string memory _dept)
     external
     view
     returns (uint256);
-    function increaseDepartmentNumber(string memory dept, uint256 number) external;
+    function increaseDepartmentNumber(string memory _dept, uint256 _number) external;
 }

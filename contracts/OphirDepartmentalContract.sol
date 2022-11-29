@@ -15,6 +15,7 @@ OphirDepartmentalContractInterface
     mapping(string => uint256) public workersNumber;
     string[] public departments;
     address private _owner;
+    mapping(string => bool) public departmentsAdded;
 
     modifier onlyOwner() {
         require(msg.sender == _owner, "Not owner.");
@@ -25,29 +26,37 @@ OphirDepartmentalContractInterface
         _owner = msg.sender;
     }
 
-    function addDepartment(string memory dept, uint256 number) 
+    function addDepartment(string memory _dept, uint256 _number) 
     external 
     onlyOwner 
     {
-        require(workersNumber[dept] == 0, "Department existent.");
-        require(number != 0, "Number <= 0.");
+        require(workersNumber[_dept] == 0, "Department existent.");
+        require(_number != 0, "Number <= 0.");
 
-        workersNumber[dept] = number;
-        departments.push(dept);
+        workersNumber[_dept] = _number;
+
+        _addToArray(_dept);
     }
 
-    function getDepartmentNumber(string memory dept)
+    function getDepartmentNumber(string memory _dept)
     external
     view
     returns (uint256)
     {
-        return workersNumber[dept];
+        return workersNumber[_dept];
     }
 
-    function increaseDepartmentNumber(string memory dept, uint256 number) 
+    function increaseDepartmentNumber(string memory _dept, uint256 _number) 
     external 
     onlyOwner 
     {
-        workersNumber[dept] += number;
+        workersNumber[_dept] += _number;
+        _addToArray(_dept);
+    }
+
+    function _addToArray(string memory _dept) private {
+        if (!departmentsAdded[_dept]) {
+            departments.push(_dept);
+        }
     }
 }
